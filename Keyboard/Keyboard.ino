@@ -18,14 +18,15 @@ BLEDis bledis;
 BLEHidAdafruit blehid;
 
 bool hasKeyPressed = false;
-int Row[5] = ( 4, 3, 2, 5, 20);
-int Column[12] = ( 16, 12, 13, 14, 8, 6, 15, 7, 11, 27, 26, 25);
-int LastScan[60];
-char NormalActivation[60] = ( "KEY_ESC", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "KEY_BACKSPACE",
-"KEY_TAB", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "-",
-"KEY_CAPS_LOCK", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "KEY_RETURN",
-"KEY_LEFT_SHIFT", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "KEY_RIGHT_SHIFT",
-"KEY_LEFT_CTRL", "KEY_LEFT_GUI", " ", " ", " ", " ", " ",  " ", "Right", "KEY_RIGHT_ALT", "KEY_RIGHT_GUI");
+int RowPin[5] = ( 4, 3, 2, 5, 20);
+int ColumnPin[12] = ( 16, 12, 13, 14, 8, 6, 15, 7, 11, 27, 26, 25);
+int LastScan[5][12];
+char NormalActivation[5][12] = 
+{ KEY_ESC, "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", KEY_BACKSPACE } ,
+{ KEY_TAB, "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "-" } ,
+{ KEY_CAPS_LOCK, "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", KEY_RETURN } ,
+{ KEY_LEFT_SHIFT, "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", KEY_RIGHT_SHIFT } ,
+{ KEY_LEFT_CTRL, KEY_LEFT_GUI, " ", " ", " ", " ", " ",  " ", "Right", KEY_RIGHT_ALT, KEY_RIGHT_GUI };
 
 pinMode(20, OUTPUT);
 pinMode(2, OUTPUT);
@@ -123,18 +124,25 @@ void startAdv(void)
 
 void loop() 
 {
-  if ( digitalRead(Row[0]) == LOW)
+  for ( int RowCount = 0; RowCount < 5; RowCount++)
   {
-    while ( ColumnCount < 12)
+    digitalWrite(RowPin[RowCount], HIGH);
+    for ( int ColumnCount = 0; ColumnCount < 12; CoulmnCount++)
     {
-      if ( digitalRead(Column[ColumnCount]))
+      if ( digitalRead(ColumnPin[ColumnCount]))
       {
-        Keyboard.press(
+        if ( int RightKeyFlag = false)
+        {
+          if ( RowCount == 4 && ColumnCount == 9){
+            RightKeyFlag = true;
+          }
+        Keyboard.press(NormalActivation[RowCount][ColumnCount]);
       }
     }
+   }
+   digitalWrite(RowPin{RowCount], LOW);
   }
 }
-
 /**
  * Callback invoked when received Set LED from central.
  * Must be set previously with setKeyboardLedCallback()
