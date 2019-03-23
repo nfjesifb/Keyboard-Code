@@ -20,13 +20,22 @@ BLEHidAdafruit blehid;
 bool hasKeyPressed = false;
 int RowPin[5] = ( 4, 3, 2, 5, 20);
 int ColumnPin[12] = ( 16, 12, 13, 14, 8, 6, 15, 7, 11, 27, 26, 25);
-int LastScan[5][12];
-char NormalActivation[5][12] = 
-{ KEY_ESC, "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", KEY_BACKSPACE } ,
-{ KEY_TAB, "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "-" } ,
-{ KEY_CAPS_LOCK, "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", KEY_RETURN } ,
-{ KEY_LEFT_SHIFT, "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", KEY_RIGHT_SHIFT } ,
-{ KEY_LEFT_CTRL, KEY_LEFT_GUI, " ", " ", " ", " ", " ",  " ", "Right", KEY_RIGHT_ALT, KEY_RIGHT_GUI };
+int ScanCheck[5][12][2];
+char NormalActivation[5][12][2] = {
+  
+{{ KEY_ESC, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', KEY_BACKSPACE } ,
+{ KEY_TAB, 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '-' } ,
+{ KEY_CAPS_LOCK, 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', KEY_RETURN } ,
+{ KEY_LEFT_SHIFT, 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', KEY_RIGHT_SHIFT } ,
+{ KEY_LEFT_CTRL, KEY_LEFT_GUI, ' ', ' ', ' ', ' ', ' ',  ' ', null, KEY_RIGHT_ALT, KEY_RIGHT_GUI }} ,
+
+{{ null, null, null, null, null, null, null, null, null, null, '`', null } ,
+{ null, null, null, null, null, null, null, null, null, null, null, '=' } ,
+{ null, null, null, null, null, null, null, null, null, null, ']', null } ,
+{ null, null, null, null, null, null, null, null, '[', null, '\\', null } ,
+{ null, null, null, null, null, null, null, null, null, null, null, null }}
+
+};
 
 pinMode(20, OUTPUT);
 pinMode(2, OUTPUT);
@@ -131,16 +140,20 @@ void loop()
     {
       if ( digitalRead(ColumnPin[ColumnCount]))
       {
-        if ( int RightKeyFlag = false)
+        if ( int RightKeyFlag = 0)
         {
           if ( RowCount == 4 && ColumnCount == 9){
-            RightKeyFlag = true;
+            RightKeyFlag = 1;
+              Keyboard.press(NormalActivation[RowCount][ColumnCount][RightKeyFlag]);
+                int ScanCheck[RowCount][ColumnCount][RightKeyFlag] = 1;
+                for ( int KeyDimession[3]; KeyDimession[0] != RowCount; && KeyDimession[1] != ColumnCount; && KeyDimession[2] != RightKeyFlag; 
           }
-        Keyboard.press(NormalActivation[RowCount][ColumnCount]);
+        Keyboard.press(NormalActivation[RowCount][ColumnCount][RightKeyFlag]);
+        int ScanCheck[RowCount][ColumnCount][RightKeyFlag] = 1;
       }
-    }
+     }
    }
-   digitalWrite(RowPin{RowCount], LOW);
+   digitalWrite(RowPin[RowCount], LOW);
   }
 }
 /**
