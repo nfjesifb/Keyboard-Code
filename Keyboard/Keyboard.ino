@@ -21,7 +21,8 @@ bool hasKeyPressed = false;
 int RowPin[5] = ( 4, 3, 2, 5, 20);
 int ColumnPin[12] = ( 16, 12, 13, 14, 8, 6, 15, 7, 11, 27, 26, 25);
 int ScanCheck[5][12][2];
-char NormalActivation[5][12][2] = {
+int KeyDimession[3];
+char Activation[5][12][2] = {
   
 {{ KEY_ESC, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', KEY_BACKSPACE } ,
 { KEY_TAB, 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '-' } ,
@@ -142,18 +143,45 @@ void loop()
       {
         if ( int RightKeyFlag = 0)
         {
-          if ( RowCount == 4 && ColumnCount == 9){
+          if ( RowCount == 4 && ColumnCount == 9)
+          {
             RightKeyFlag = 1;
-              Keyboard.press(NormalActivation[RowCount][ColumnCount][RightKeyFlag]);
                 int ScanCheck[RowCount][ColumnCount][RightKeyFlag] = 1;
-                for ( int KeyDimession[3]; KeyDimession[0] != RowCount; && KeyDimession[1] != ColumnCount; && KeyDimession[2] != RightKeyFlag; 
           }
-        Keyboard.press(NormalActivation[RowCount][ColumnCount][RightKeyFlag]);
+        Keyboard.press(Activation[RowCount][ColumnCount][RightKeyFlag]);
         int ScanCheck[RowCount][ColumnCount][RightKeyFlag] = 1;
       }
      }
    }
    digitalWrite(RowPin[RowCount], LOW);
+/*   if ( KeyDimession[XDimession] != RowCount && KeyDimession[YDimession] != ColumnCount && KeyDimession[ZDimession] != RightKeyFlag)
+                {
+                  if ( ZDimession < 1)
+                  {
+                    ZDimession++;
+                  } else
+                  {
+                    ZDimession = 0;
+                    if ( YDimession < 11)
+                    {
+                      YDimession++;
+                    } else
+                    {
+                      YDimession = 0;
+                      if ( XDimession < 4)
+                      {
+                        XDimession++;
+                      } else
+                      {
+                        XDimession = 0;
+                      }
+                    }
+                  }
+                } else if ( KeyDimession[XDimession] == RowCount && KeyDimession[YDimession] == ColumnCount && KeyDimession[ZDimession] == RightKeyFlag)
+                {
+                  Keyboard.release(Activation[XDimession][YDimession][ZDimession]);
+                }
+                */
   }
 }
 /**
