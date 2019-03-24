@@ -21,6 +21,7 @@ bool hasKeyPressed = false;
 int RowPin[5] = ( 4, 3, 2, 5, 20);
 int ColumnPin[12] = ( 16, 12, 13, 14, 8, 6, 15, 7, 11, 27, 26, 25);
 int ScanCheck[5][12][2];
+int ScanCheckCurrentLoop[5][12][2];
 int KeyDimession[3];
 char Activation[5][12][2] = {
   
@@ -141,20 +142,25 @@ void loop()
     {
       if ( digitalRead(ColumnPin[ColumnCount]))
       {
-        if ( int RightKeyFlag = 0)
-        {
           if ( RowCount == 4 && ColumnCount == 9)
           {
             RightKeyFlag = 1;
                 int ScanCheck[RowCount][ColumnCount][RightKeyFlag] = 1;
+                        int ScanCheckCurrentLoop[RowCount][ColumnCount][RightKeyFlag] = 1;
+
           }
         Keyboard.press(Activation[RowCount][ColumnCount][RightKeyFlag]);
         int ScanCheck[RowCount][ColumnCount][RightKeyFlag] = 1;
-      }
+                int ScanCheckCurrentLoop[RowCount][ColumnCount][RightKeyFlag] = 1;
+
      }
    }
    digitalWrite(RowPin[RowCount], LOW);
-/*   if ( KeyDimession[XDimession] != RowCount && KeyDimession[YDimession] != ColumnCount && KeyDimession[ZDimession] != RightKeyFlag)
+   
+  }
+}
+/**
+ * if ( KeyDimession[XDimession] != RowCount && KeyDimession[YDimession] != ColumnCount && KeyDimession[ZDimession] != RightKeyFlag)
                 {
                   if ( ZDimession < 1)
                   {
@@ -177,14 +183,10 @@ void loop()
                       }
                     }
                   }
-                } else if ( KeyDimession[XDimession] == RowCount && KeyDimession[YDimession] == ColumnCount && KeyDimession[ZDimession] == RightKeyFlag)
+                } else if ( KeyDimession != ScanCheckCurrentLoop[XDimession][YDimession][ZDimession])
                 {
                   Keyboard.release(Activation[XDimession][YDimession][ZDimession]);
                 }
-                */
-  }
-}
-/**
  * Callback invoked when received Set LED from central.
  * Must be set previously with setKeyboardLedCallback()
  *
