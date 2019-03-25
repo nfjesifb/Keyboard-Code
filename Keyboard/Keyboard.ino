@@ -12,7 +12,7 @@
  any redistribution
 *********************************************************************/
 #include <bluefruit.h>
-#include <keyboard.h>
+#include <Keyboard.h>
 //Hi github
 BLEDis bledis;
 BLEHidAdafruit blehid;
@@ -23,6 +23,9 @@ int ColumnPin[12] = ( 16, 12, 13, 14, 8, 6, 15, 7, 11, 27, 26, 25);
 int ScanCheck[5][12][2];
 int ScanCheckCurrentLoop[5][12][2];
 int KeyDimession[3];
+int XDimession = 0;
+int YDimession = 0;
+int ZDimession = 0;
 char Activation[5][12][2] = {
   
 {{ KEY_ESC, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', KEY_BACKSPACE } ,
@@ -155,12 +158,8 @@ void loop()
 
      }
    }
-   digitalWrite(RowPin[RowCount], LOW);
-   
-  }
-}
-/**
- * if ( KeyDimession[XDimession] != RowCount && KeyDimession[YDimession] != ColumnCount && KeyDimession[ZDimession] != RightKeyFlag)
+      digitalWrite(RowPin[RowCount], LOW);
+ while ( KeyDimession[XDimession] != RowCount && KeyDimession[YDimession] != ColumnCount && KeyDimession[ZDimession] != RightKeyFlag)
                 {
                   if ( ZDimession < 1)
                   {
@@ -179,14 +178,18 @@ void loop()
                         XDimession++;
                       } else
                       {
-                        XDimession = 0;
+                        return;
                       }
                     }
                   }
-                } else if ( KeyDimession != ScanCheckCurrentLoop[XDimession][YDimession][ZDimession])
+                } else if ( KeyDimession == ScanCheckCurrentLoop[XDimession][YDimession][ZDimession])
                 {
                   Keyboard.release(Activation[XDimession][YDimession][ZDimession]);
                 }
+  }
+}
+/**
+ *
  * Callback invoked when received Set LED from central.
  * Must be set previously with setKeyboardLedCallback()
  *
