@@ -23,9 +23,6 @@ int ColumnPin[12] = ( 16, 12, 13, 14, 8, 6, 15, 7, 11, 27, 26, 25);
 int ScanCheck[5][12][2];
 int ScanCheckCurrentLoop[5][12][2];
 int KeyDimession[3];
-int XDimession = 0;
-int YDimession = 0;
-int ZDimession = 0;
 char Activation[5][12][2] = {
   
 {{ KEY_ESC, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', KEY_BACKSPACE } ,
@@ -184,7 +181,7 @@ void loop()
                   }
                 } else if ( KeyDimession == ScanCheckCurrentLoop[XDimession][YDimession][ZDimession])
                 {
-                  Keyboard.release(Activation[XDimession][YDimession][ZDimession]);
+                  Keyboard.release(Activation[KeyDimession[XDimession][YDimession][ZDimession]]);
                 }
   }
 }
