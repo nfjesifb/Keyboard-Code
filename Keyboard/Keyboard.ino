@@ -1,3 +1,6 @@
+#include <Keyboard.h>
+#include <bluefruit.h>
+
 /*********************************************************************
  This is an example for our nRF52 based Bluefruit LE modules
 
@@ -11,8 +14,6 @@
  All text above, and the splash screen below must be included in
  any redistribution
 *********************************************************************/
-#include <bluefruit.h>
-#include <Keyboard.h>
 //Hi github
 BLEDis bledis;
 BLEHidAdafruit blehid;
