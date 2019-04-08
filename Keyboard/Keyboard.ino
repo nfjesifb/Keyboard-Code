@@ -12,30 +12,29 @@
  any redistribution
 *********************************************************************/
 #include <bluefruit.h>
-#include <Keyboard.h>
 //Hi github
 BLEDis bledis;
 BLEHidAdafruit blehid;
 
 bool hasKeyPressed = false;
-int RowPin[5] = ( 4, 3, 2, 5, 20);
-int ColumnPin[12] = ( 16, 12, 13, 14, 8, 6, 15, 7, 11, 27, 26, 25);
+int RowPin[5] = { 4, 3, 2, 5, 20};
+int ColumnPin[12] = { 16, 12, 13, 14, 8, 6, 15, 7, 11, 27, 26, 25};
 int ScanCheck[5][12][2];
 int ScanCheckCurrentLoop[5][12][2];
 int KeyDimession[3];
 char Activation[5][12][2] = {
   
-{{ KEY_ESC, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', KEY_BACKSPACE } ,
-{ KEY_TAB, 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '-' } ,
-{ KEY_CAPS_LOCK, 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', KEY_RETURN } ,
-{ KEY_LEFT_SHIFT, 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', KEY_RIGHT_SHIFT } ,
-{ KEY_LEFT_CTRL, KEY_LEFT_GUI, ' ', ' ', ' ', ' ', ' ',  ' ', null, KEY_RIGHT_ALT, KEY_RIGHT_GUI }} ,
+{{ HID_KEY_ESC,HID_KEY_1,HID_KEY_2,HID_KEY_3,HID_KEY_4,HID_KEY_5,HID_KEY_6,HID_KEY_7,HID_KEY_8,HID_KEY_9,HID_KEY_0, HID_KEY_BACKSPACE } ,
+{ HID_KEY_TAB,HID_KEY_Q,HID_KEY_W,HID_KEY_E,HID_KEY_R,HID_KEY_T,HID_KEY_Y,HID_KEY_U,HID_KEY_I,HID_KEY_O,HID_KEY_P,HID_KEY_MINUS } ,
+{ HID_KEY_CAPS_LOCK, HID_KEY_A,HID_KEY_S, HID_KEY_D,HID_KEY_F,HID_KEY_G,HID_KEY_H,HID_KEY_J,HID_KEY_K,HID_KEY_L,HID_KEY_SEMICOLON, HID_KEY_RETURN } ,
+{ HID_KEY_SHIFT_LEFT,HID_KEY_Z,HID_KEY_X, HID_KEY_C,HID_KEY_V, HID_KEY_B,HID_KEY_N,HID_KEY_M,HID_KEY_COMMA,HID_KEY_PERIOD,HID_KEY_BACKSLASH, HID_KEY_SHIFT_RIGHT } ,
+{ HID_KEY_CTRL_LEFT, HID_KEY_GUI_LEFT,HID_KEY_SPACE,HID_KEY_SPACE,HID_KEY_SPACE,HID_KEY_SPACE,HID_KEY_SPACE, HID_KEY_SPACE, HID_KEY_NONE, HID_KEY_ALT_RIGHT, HID_KEY_POWER }} ,
 
-{{ null, null, null, null, null, null, null, null, null, null, '`', null } ,
-{ null, null, null, null, null, null, null, null, null, null, null, '=' } ,
-{ null, null, null, null, null, null, null, null, null, null, ']', null } ,
-{ null, null, null, null, null, null, null, null, '[', null, '\\', null } ,
-{ null, null, null, null, null, null, null, null, null, null, null, null }}
+{{ HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE,HID_KEY_EQUAL, HID_KEY_NONE } ,
+{ HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE,HID_KEY_BACKSLASH } ,
+{ HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE,HID_KEY_NONE, HID_KEY_NONE } ,
+{ HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE,HID_KEY_NONE, HID_KEY_NONE,HID_KEY_BRACKET_LEFT, HID_KEY_BRACKET_RIGHT } ,
+{ HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE }}
 
 };
 
@@ -149,7 +148,7 @@ void loop()
                         int ScanCheckCurrentLoop[RowCount][ColumnCount][RightKeyFlag] = 1;
 
           }
-        Keyboard.press(Activation[RowCount][ColumnCount][RightKeyFlag]);
+        blehid.keyPress(Activation[RowCount][ColumnCount][RightKeyFlag]);
         int ScanCheck[RowCount][ColumnCount][RightKeyFlag] = 1;
                 int ScanCheckCurrentLoop[RowCount][ColumnCount][RightKeyFlag] = 1;
 
@@ -181,7 +180,7 @@ void loop()
                   }
                 } else if ( KeyDimession == ScanCheckCurrentLoop[XDimession][YDimession][ZDimession])
                 {
-                  Keyboard.release(Activation[KeyDimession[XDimession][YDimession][ZDimession]]);
+                  blehid.keyRelease(Activation[KeyDimession[XDimession][YDimession][ZDimession]]);
                 }
   }
 }
