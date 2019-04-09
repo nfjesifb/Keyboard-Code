@@ -133,10 +133,11 @@ void startAdv(void)
 
 void loop() 
 {
+  int RightKeyFlag;
   for ( int RowCount = 0; RowCount < 5; RowCount++)
   {
     digitalWrite(RowPin[RowCount], HIGH);
-    for ( int ColumnCount = 0; ColumnCount < 12; CoulmnCount++)
+    for ( int ColumnCount = 0; ColumnCount < 12; ColumnCount++)
     {
       if ( digitalRead(ColumnPin[ColumnCount]))
       {
