@@ -16,9 +16,6 @@ BLEHidAdafruit blehid;
 bool hasKeyPressed = false;
 int RowPin[5] = { 4, 3, 2, 5, 20};
 int ColumnPin[12] = { 16, 12, 13, 14, 8, 6, 15, 7, 11, 27, 26, 25};
-int ScanCheck[5][12][2];
-int ScanCheckCurrentLoop[2][5][12];
-int KeyDimession[3];
 char Activation[2][5][12] = {
   
 {{ HID_KEY_ESCAPE,HID_KEY_1,HID_KEY_2,HID_KEY_3,HID_KEY_4,HID_KEY_5,HID_KEY_6,HID_KEY_7,HID_KEY_8,HID_KEY_9,HID_KEY_0, HID_KEY_BACKSPACE } ,
@@ -34,9 +31,6 @@ char Activation[2][5][12] = {
 { HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE, HID_KEY_NONE }}
 
 };
-
-
-
 void setup() 
 {
   Serial.begin(115200);
@@ -140,48 +134,11 @@ void loop()
     for ( int ColumnCount = 0; ColumnCount < 12; ColumnCount++)
     {
       if ( digitalRead(ColumnPin[ColumnCount]))
-      {
-          if ( RowCount == 4 && ColumnCount == 9)
-          {
-            RightKeyFlag = 1;
-                int ScanCheck[RightKeyFlag][RowCount][ColumnCount] = 1;
-                        int ScanCheckCurrentLoop[RightKeyFlag][RowCount][ColumnCount] = 1;
-
-          }
-        blehid.keyPress(Activation[RightKeyFlag][RowCount][ColumnCount]);
-        int ScanCheck[RightKeyFlag][RowCount][ColumnCount] = 1;
-                int ScanCheckCurrentLoop[RightKeyFlag][RowCount][ColumnCount] = 1;
-
+      {  
+        blehid.keyPress('q');
+         blehid.keyRelease('q');
      }
    }
-      digitalWrite(RowPin[RowCount], LOW);
- while ( KeyDimession[XDimession] != RowCount && KeyDimession[YDimession] != ColumnCount && KeyDimession[ZDimession] != RightKeyFlag)
-                {
-                  if ( ZDimession < 1)
-                  {
-                    ZDimession++;
-                  } else
-                  {
-                    ZDimession = 0;
-                    if ( YDimession < 11)
-                    {
-                      YDimession++;
-                    } else
-                    {
-                      YDimession = 0;
-                      if ( XDimession < 4)
-                      {
-                        XDimession++;
-                      } else
-                      {
-                        return;
-                      }
-                    }
-                  }
-                } else if ( KeyDimession == ScanCheckCurrentLoop[ZDimession][XDimession][YDimession])
-                {
-                  blehid.keyRelease(Activation[KeyDimession[ZDimession][XDimession][YDimession]]);
-                }
   }
 }
 /**
